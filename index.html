@@ -10,6 +10,22 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.js"></script>
     <script type="text/javascript" src="./assets/js/lib/paper-full.js"></script>
     <script type="text/paperscript" canvas="myCanvas">
+
+        //Set up display prompt's text style.
+        var text = new PointText(new Point(view.size.width/2, view.size.height/2));  
+          
+        text.style = {
+            fontFamily: 'Courier New',
+            fontWeight: 'bold',
+            fontSize: 30,
+            fillColor: 'red',
+            justification: 'center'
+        };
+
+        //Display the control prompt
+        text.content = 'Press any key, a-z, to play around with it :)';
+
+        //Set up the keys' data
         var circles = [];
         var data = {
             q: {
@@ -177,11 +193,17 @@
                 var newCircle = new Path.Circle(point, 500);
                 newCircle.fillColor = data[event.key].color;
                 circles.push(newCircle);
+
+                //Play the sound of the key
                 data[event.key].sound.play();
+                
+                //Remove the text
+                text.remove();
             }
         }
 
         function onFrame(event){
+            //Remove the circle whose area is already less than 1.0
             for(var i = circles.length - 1; i >= 0; i--){
                 var curCircle = circles[i];
                 curCircle.fillColor.hue += 1;
@@ -191,7 +213,8 @@
                     circles.splice(i,1);
                 }
             }
-        }
+        }    
+
     </script>
 </head>
 
