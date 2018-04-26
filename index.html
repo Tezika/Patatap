@@ -25,7 +25,7 @@
         //Display the control prompt
         text.content = 'Press any key, a-z, to play around with it :)';
 
-        //Set up the keys' data
+        //Set up the keys'data
         var circles = [];
         var data = {
             q: {
@@ -197,8 +197,8 @@
                 //Play the sound of the key
                 data[event.key].sound.play();
                 
-                //Remove the text
-                text.remove();
+                //Hide the text
+                text.fillColor = "black";
             }
         }
 
@@ -212,6 +212,10 @@
                     curCircle.remove();
                     circles.splice(i,1);
                 }
+            }
+            //Check the prompt status
+            if(circles.length == 0 && text.fillColor !== "red"){
+                text.fillColor = "red";
             }
         }    
 
